@@ -17,8 +17,8 @@ void declinePacket::getMACAddress(uint8_t* output) const {
     memcpy(output, MACAddress, 6);
 }
 
-void declinePacket::setDeclineReason(uint8_t declineReason) {
-    this->declineReason = declineReason;
+void declinePacket::setDeclineReason(declineReason reason) {
+    this->reason = reason;
 }
 
 bool declinePacket::encode(uint8_t* input, size_t inputLength) {
@@ -27,7 +27,7 @@ bool declinePacket::encode(uint8_t* input, size_t inputLength) {
         return (false);
     }
     setMACAddress(&input[1]);
-    setDeclineReason(input[7]);
+    setDeclineReason((declineReason)input[7]);
     return (true);
 }
 
@@ -38,6 +38,6 @@ size_t declinePacket::decode(uint8_t* output, size_t outputLength) const {
     }
     output[0] = this->ID;
     memcpy(&output[1], MACAddress, 6);
-    output[7] = declineReason;
+    output[7] = reason;
     return (8);
 }

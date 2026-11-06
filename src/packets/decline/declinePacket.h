@@ -1,6 +1,11 @@
 #pragma once
 #include "../packet.h"
 
+enum declineReason {
+    protocolVersionNotCompatable,
+    noSpaceForDevice
+};
+
 /**
  * Decline
  * a decline packet is sent when the master refuses a connection to a device
@@ -25,7 +30,7 @@ struct declinePacket : public packet {
     /// to ID the device before device IDs are assigned to it
     uint8_t MACAddress[6] = {0};
     /// @brief the reason that the connection was declined
-    uint8_t declineReason = 0;
+    declineReason reason;
 
    public:
     /// @brief constructor for the declinePacket, sets the ID to type declineID
@@ -46,8 +51,8 @@ struct declinePacket : public packet {
     void getMACAddress(uint8_t* output) const;
 
     /// @brief sets the packets decline reason
-    /// @param declineReason the reason that the connection was declined
-    void setDeclineReason(uint8_t declineReason);
+    /// @param reason the reason that the connection was declined
+    void setDeclineReason(declineReason reason);
 
     /// @brief encodes a packets raw data into the current packet struct
     /// @param input the data to encode

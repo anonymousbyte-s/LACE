@@ -1,0 +1,11 @@
+{
+    "name": "LACE",
+    "version": "1.0.0",
+    "description": "LACE communication protocol",
+    "frameworks": "*",
+    "platforms": "*",
+    "build": {
+      "includeDir": "src",
+        "srcDir": "src"
+    }
+}
