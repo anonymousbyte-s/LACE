@@ -3,45 +3,38 @@
 packetVariants autoConstructPacket(uint8_t* input, size_t inputLength) {
     // cant decode an empty packet
     if (inputLength == 0) {
-        return (errorPacket{input, inputLength});
+        return (errorPacket{});
     }
 
     packetVariants output;
     // find what kind of packet the input is
     switch (input[0]) {
         case (acceptID):
-            output = acceptPacket{input, inputLength};
+            output.emplace<acceptPacket>(input, inputLength);
             break;
         case (announceID):
-            output = announcePacket{input, inputLength};
+            output.emplace<announcePacket>(input, inputLength);
             break;
         case (dataID):
-            output = dataPacket{input, inputLength};
+            output.emplace<dataPacket>(input, inputLength);
             break;
         case (declineID):
-            output = declinePacket{input, inputLength};
+            output.emplace<declinePacket>(input, inputLength);
             break;
         case (descriptorID):
-            output = descriptorPacket{input, inputLength};
+            output.emplace<descriptorPacket>(input, inputLength);
             break;
         case (errorID):
-            output = errorPacket{input, inputLength};
+            output.emplace<errorPacket>(input, inputLength);
             break;
         case (pingID):
-            output = pingPacket{input, inputLength};
+            output.emplace<pingPacket>(input, inputLength);
             break;
     };
+
     // if the outputs ID is an error then return an error packet
-    std::visit([&output](auto& input) {
-        using T = std::decay_t<decltype(input)>;
-        if constexpr (std::is_same_v<T, std::monostate>) {
-            return;
-        } else {
-            if (input.getPacketID() == errorID) {
-                output = errorPacket{};
-            }
-        }
-    },
-               output);
+    if (asPacket(output)->getPacketID() == errorID) {
+        output.emplace<errorPacket>();
+    }
     return (output);
 }

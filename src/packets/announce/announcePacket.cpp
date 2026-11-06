@@ -6,7 +6,9 @@ announcePacket::announcePacket() {
 
 announcePacket::announcePacket(uint8_t* input, size_t inputLength) {
     this->ID = announceID;
-    this->encode(input, inputLength);
+    if (!this->encode(input, inputLength)) {
+        this->ID = errorID;
+    }
 }
 
 bool announcePacket::encode(uint8_t* input, size_t inputLength) {

@@ -14,6 +14,7 @@ enum packetID : uint8_t {
     acceptID,
     declineID,
     dataID,
+    noopID = 254,
     errorID = 255
 };
 

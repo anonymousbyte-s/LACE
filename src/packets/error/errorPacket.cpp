@@ -5,6 +5,7 @@ errorPacket::errorPacket() {
 }
 
 errorPacket::errorPacket(uint8_t* input, size_t inputLength) {
+    this->ID = errorID;
     encode(input, inputLength);
 }
 

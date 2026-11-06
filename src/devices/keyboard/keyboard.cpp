@@ -49,3 +49,10 @@ bool virtualKeyboard::processLACEPacket(const dataPacket input) {
     taskEXIT_CRITICAL(&keyboardMux);
     return (1);
 }
+
+dataPacket virtualKeyboard::encodeLACEPacket() {
+    dataPacket output;
+    output.setData(buttonArray, buttonArrayLength);
+    output.setDeviceID(deviceID);
+    return (output);
+}

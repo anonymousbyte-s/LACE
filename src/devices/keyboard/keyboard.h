@@ -41,4 +41,8 @@ class virtualKeyboard : public LACEDevice {
     /// @param input the packet to process
     /// @return true if the packet was processed, 0 if it was rejected
     bool processLACEPacket(dataPacket input);
+
+    /// @brief returns a dataPacket struct with the keyboard data
+    /// @return the encoded dataPacket
+    dataPacket encodeLACEPacket();
 };

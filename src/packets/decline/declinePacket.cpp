@@ -6,7 +6,9 @@ declinePacket::declinePacket() {
 
 declinePacket::declinePacket(uint8_t* input, size_t inputLength) {
     this->ID = declineID;
-    this->encode(input, inputLength);
+    if (!this->encode(input, inputLength)) {
+        this->ID = errorID;
+    }
 }
 
 void declinePacket::setMACAddress(uint8_t* input) {

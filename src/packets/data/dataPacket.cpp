@@ -6,7 +6,9 @@ dataPacket::dataPacket() {
 
 dataPacket::dataPacket(uint8_t* input, size_t inputLength) {
     this->ID = dataID;
-    this->encode(input, inputLength);
+    if (!this->encode(input, inputLength)) {
+        this->ID = errorID;
+    }
 }
 
 deviceType dataPacket::getPacketDeviceType() const {

@@ -11,6 +11,14 @@ LACEDevice::LACEDevice(uint8_t buttonArrayLength) {
     }
 }
 
+uint8_t LACEDevice::getID() {
+    return (deviceID);
+}
+
+void LACEDevice::setID(uint8_t deviceID) {
+    this->deviceID = deviceID;
+}
+
 bool LACEDevice::getButton(const deviceButton button) {
     bool output = 0;
     if (button.byteMaskOffset >= buttonArrayLength) {

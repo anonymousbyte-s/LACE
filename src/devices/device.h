@@ -18,11 +18,21 @@ class LACEDevice {
     uint8_t* buttonArray = nullptr;
     /// @brief the length of the button arrays
     uint8_t buttonArrayLength;
+    /// @brief used to identify the device and the packets it sends
+    uint8_t deviceID;
 
    public:
     /// @brief contructs the LACEDevice and allocates memory for the button array
     /// @param buttonArrayLength the length of the devices button array
     LACEDevice(uint8_t buttonArrayLength);
+
+    /// @brief returns the devices ID
+    /// @return the devices ID
+    uint8_t getID();
+
+    /// @brief sets the device ID
+    /// @param deviceID the ID to set it to
+    void setID(uint8_t deviceID);
 
     /// @brief gets a buttons value
     /// @param button the button to get the state of

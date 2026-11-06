@@ -6,6 +6,6 @@
     "platforms": "*",
     "build": {
       "includeDir": "src",
-        "srcDir": "src"
+      "srcDir": "src"
     }
 }

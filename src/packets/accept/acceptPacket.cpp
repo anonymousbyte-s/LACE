@@ -6,7 +6,9 @@ acceptPacket::acceptPacket() {
 
 acceptPacket::acceptPacket(uint8_t* input, size_t inputLength) {
     this->ID = acceptID;
-    this->encode(input, inputLength);
+    if (!this->encode(input, inputLength)) {
+        this->ID = errorID;
+    }
 }
 
 bool acceptPacket::addDeviceID(uint8_t input) {
