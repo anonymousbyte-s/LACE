@@ -1,0 +1,43 @@
+#include "declinePacket.h"
+
+declinePacket::declinePacket() {
+    this->ID = declineID;
+}
+
+declinePacket::declinePacket(uint8_t* input, size_t inputLength) {
+    this->ID = declineID;
+    this->encode(input, inputLength);
+}
+
+void declinePacket::setMACAddress(uint8_t* input) {
+    memcpy(MACAddress, input, 6);
+}
+
+void declinePacket::getMACAddress(uint8_t* output) const {
+    memcpy(output, MACAddress, 6);
+}
+
+void declinePacket::setDeclineReason(uint8_t declineReason) {
+    this->declineReason = declineReason;
+}
+
+bool declinePacket::encode(uint8_t* input, size_t inputLength) {
+    if (inputLength != 8) {
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
+        return (false);
+    }
+    setMACAddress(&input[1]);
+    setDeclineReason(input[7]);
+    return (true);
+}
+
+size_t declinePacket::decode(uint8_t* output, size_t outputLength) const {
+    if (outputLength < 8) {
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        return (0);
+    }
+    output[0] = this->ID;
+    memcpy(&output[1], MACAddress, 6);
+    output[7] = declineReason;
+    return (8);
+}
