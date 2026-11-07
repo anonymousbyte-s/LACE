@@ -10,7 +10,7 @@ pingPacket::pingPacket(uint8_t* input, size_t inputLength) {
 
 bool pingPacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength != 1) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE PING\n");
         return (false);
     }
     return (true);
@@ -22,7 +22,7 @@ bool pingPacket::encode(uint8_t* input, size_t inputLength) {
 /// @return the size of the written packet, or 0 if there was an error
 size_t pingPacket::decode(uint8_t* output, size_t outputLength) const {
     if (outputLength < 1) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL PING\n");
         return (0);
     }
     output[0] = this->ID;

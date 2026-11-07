@@ -45,7 +45,7 @@ void descriptorPacket::removeDevice(uint8_t byteMask) {
 
 bool descriptorPacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength != 9) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE, DESC %zu", inputLength);
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE DESC %zu\n", inputLength);
         return (false);
     }
     setMACAddress(&input[1]);
@@ -56,7 +56,7 @@ bool descriptorPacket::encode(uint8_t* input, size_t inputLength) {
 
 size_t descriptorPacket::decode(uint8_t* output, size_t outputLength) const {
     if (outputLength < 9) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL DESC\n");
         return (0);
     }
     output[0] = this->ID;

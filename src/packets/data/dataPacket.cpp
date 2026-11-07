@@ -15,6 +15,10 @@ deviceType dataPacket::getPacketDeviceType() const {
     return (packetDeviceType);
 }
 
+void dataPacket::setPacketDeviceType(deviceType packetDeviceType) {
+    this->packetDeviceType = packetDeviceType;
+}
+
 void dataPacket::setDeviceID(uint8_t deviceID) {
     this->deviceID = deviceID;
 }
@@ -47,7 +51,7 @@ bool dataPacket::addData(uint8_t* input, size_t dataLength) {
 
 size_t dataPacket::getData(uint8_t* output, size_t outptuLength) const {
     if (outptuLength < dataLength) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL WHILE GETTING DATA DAT\n");
         return (0);
     }
 
@@ -56,29 +60,29 @@ size_t dataPacket::getData(uint8_t* output, size_t outptuLength) const {
 }
 
 bool dataPacket::encode(uint8_t* input, size_t inputLength) {
-    if (inputLength < 3) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
-        return (false);
-    }
-    if (inputLength != 3 + getDataPacketSize((deviceType)input[2])) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
+    if (inputLength < 3 || inputLength != 3 + getDataPacketSize((deviceType)input[2])) {
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE DAT %zu\n", inputLength);
+        printf("%u\n", 3 + getDataPacketSize((deviceType)input[2]));
+        printf("%u\n", input[2]);
         return (false);
     }
 
-    this->packetDeviceType = (deviceType)input[1];
-    this->deviceID = input[2];
+    this->deviceID = input[1];
+    this->packetDeviceType = (deviceType)input[2];
     setData(&input[3], getDataPacketSize((deviceType)input[2]));
     return (true);
 }
 
 size_t dataPacket::decode(uint8_t* output, size_t outputLength) const {
     if (outputLength < 3 + getDataPacketSize(this->packetDeviceType)) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL DAT\n");
+        printf("%zu\n", outputLength);
+        printf("%u\n", 3 + getDataPacketSize(this->packetDeviceType));
         return (0);
     }
     output[0] = this->ID;
-    output[1] = this->packetDeviceType;
-    output[2] = this->deviceID;
+    output[1] = this->deviceID;
+    output[2] = this->packetDeviceType;
     memcpy(&output[3], data, dataLength);
 
     return (3 + getDataPacketSize(this->packetDeviceType));

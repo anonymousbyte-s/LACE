@@ -20,23 +20,32 @@ bool acceptPacket::addDeviceID(uint8_t input) {
     return (true);
 }
 
-bool acceptPacket::setDeviceIDs(uint8_t* input, uint8_t inputLength) {
-    if (inputLength > 8 || inputLength == 0) {
+bool acceptPacket::setDeviceIDs(uint8_t* input, size_t inputLength) {
+    if (inputLength > 8 || inputLength <= 0) {
         return (false);
     }
     memcpy(deviceIDs, input, inputLength);
+    deviceIDCount = inputLength;
     return (true);
+}
+
+uint8_t acceptPacket::getDeviceID(uint8_t index) {
+    // out of bounds
+    if (index >= deviceIDCount) {
+        return (255);
+    }
+    return (deviceIDs[index]);
 }
 
 bool acceptPacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength < 9) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE, ACPT");
+        printf("PACK ERROR INPUT BUFFER IS NOT BIG ENOUGH ACPT\n");
         return (false);
     }
     // calculate the expected data length and check if it matches
     size_t expectedLength = 9 + __builtin_popcount(input[8]);
     if (inputLength != expectedLength) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE ACPT\n");
         return (false);
     }
 
@@ -49,13 +58,14 @@ bool acceptPacket::encode(uint8_t* input, size_t inputLength) {
 
 size_t acceptPacket::decode(uint8_t* output, size_t outputLength) const {
     if (outputLength < 9 + __builtin_popcount(deviceByteMask)) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL\n");
         return (0);
     }
 
     output[0] = this->ID;
     memcpy(&output[1], MACAddress, 6);
+    output[7] = packetLACEVersion;
     output[8] = deviceByteMask;
     memcpy(&output[9], deviceIDs, __builtin_popcount(deviceByteMask));
-    return (1);
+    return (9 + __builtin_popcount(deviceByteMask));
 }

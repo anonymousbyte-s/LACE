@@ -36,9 +36,13 @@ struct dataPacket : public packet {
     /// @param inputLength the length of the input data
     dataPacket(uint8_t* input, size_t inputLength);
 
-    /// @brief returns the type of device the packet is comming from
+    /// @brief returns the type of device the packet is coming from
     /// @return the type of device
     deviceType getPacketDeviceType() const;
+
+    /// @brief sets the type of device the packet is coming from
+    /// @param packetDeviceType the device type to set the packet to
+    void setPacketDeviceType(deviceType packetDeviceType);
 
     /// @brief sets the packets device ID
     /// @param deviceID the ID to set it to

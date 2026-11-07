@@ -13,7 +13,7 @@ announcePacket::announcePacket(uint8_t* input, size_t inputLength) {
 
 bool announcePacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength != 1) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE ANNO\n");
         return (false);
     }
     return (true);
@@ -25,7 +25,7 @@ bool announcePacket::encode(uint8_t* input, size_t inputLength) {
 /// @return the size of the written packet, or 0 if there was an error
 size_t announcePacket::decode(uint8_t* output, size_t outputLength) const {
     if (outputLength < 1) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL ANNO\n");
         return (0);
     }
     output[0] = this->ID;

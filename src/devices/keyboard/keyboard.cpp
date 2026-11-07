@@ -37,7 +37,7 @@ bool virtualKeyboard::processLACEPacket(const dataPacket input) {
         return (0);
     }
     if (input.getPacketDeviceType() != keyboard) {
-        ESP_LOGE("KBD", "ERROR PACKET STATE DEVICE TYPE IS NOT A KEYBOARD");
+        ESP_LOGE("KBD", "ERROR PACKET DEVICE TYPE IS NOT A KEYBOARD");
         return (0);
     }
 
@@ -54,5 +54,6 @@ dataPacket virtualKeyboard::encodeLACEPacket() {
     dataPacket output;
     output.setData(buttonArray, buttonArrayLength);
     output.setDeviceID(deviceID);
+    output.setPacketDeviceType(keyboard);
     return (output);
 }

@@ -19,7 +19,7 @@ class LACEDevice {
     /// @brief the length of the button arrays
     uint8_t buttonArrayLength;
     /// @brief used to identify the device and the packets it sends
-    uint8_t deviceID;
+    uint8_t deviceID = 255;
 
    public:
     /// @brief contructs the LACEDevice and allocates memory for the button array
@@ -50,6 +50,10 @@ class LACEDevice {
     /// @return returns true if the packet was processed and false if it was rejected
     virtual bool processLACEPacket(dataPacket input) = 0;
 
+    /// @brief returns a data packet that was encoded from the device object
+    /// @return the encoded data packet
+    virtual dataPacket encodeLACEPacket() = 0;
+
     /// @brief deconstructor for a LACEDevice, will free the buttonArray memory
-    ~LACEDevice();
+    virtual ~LACEDevice();
 };

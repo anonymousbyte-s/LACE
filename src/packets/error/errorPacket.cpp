@@ -11,7 +11,7 @@ errorPacket::errorPacket(uint8_t* input, size_t inputLength) {
 
 bool errorPacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength != 1) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE");
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE\n");
         return (false);
     }
     return (true);
@@ -19,7 +19,7 @@ bool errorPacket::encode(uint8_t* input, size_t inputLength) {
 
 size_t errorPacket::decode(uint8_t* output, size_t outputLength) const {
     if (outputLength < 1) {
-        printf("PACK ERROR OUTPUT BUFFER TOO SMALL");
+        printf("PACK ERROR OUTPUT BUFFER TOO SMALL ERR\n");
         return (0);
     }
     output[0] = this->ID;

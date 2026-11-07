@@ -55,7 +55,12 @@ struct acceptPacket : public descriptorPacket {
     /// @param input the array to copy to the deviceIDs array
     /// @param inputLength the length of the input array
     /// @return true if all of the device IDs could fit, and false if not (will not copy IDs on failure)
-    bool setDeviceIDs(uint8_t* input, uint8_t inputLength);
+    bool setDeviceIDs(uint8_t* input, size_t inputLength);
+
+    /// @brief returns the ID of the device at the specified index
+    /// @param index the index of the device to return
+    /// @return the devices ID
+    uint8_t getDeviceID(uint8_t index);
 
     /// @brief encodes a packets raw data into the current packet struct
     /// @param input the data to encode

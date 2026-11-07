@@ -3,7 +3,7 @@
 size_t cobsEncode(const void* input, size_t inputLength, uint8_t* output, size_t outputLength) {
     // check that the output buffer has enough space
     if (inputLength + (inputLength + 253) / 254 + 1 > outputLength) {
-        printf("COBS Buffer Overflow");
+        printf("COBS Buffer Overflow\n");
         return (0);
     }
 
@@ -70,7 +70,7 @@ size_t cobsDecode(const uint8_t* input, size_t inputLength, void* output,
         }
         // output buffer overflow
         if (decode - (uint8_t*)output > outputSize) {
-            printf("COBS Buffer Overflow");
+            printf("COBS Buffer Overflow\n");
             return (0);
         }
         block--;
@@ -112,7 +112,7 @@ size_t LACEFrameEncode(uint8_t* input, size_t inputLength, uint8_t* output, size
 size_t LACEFrameDecode(uint8_t* input, size_t inputLength, uint8_t* output, size_t outputLength) {
     // can't decode an empty frame
     if (inputLength == 0) {
-        printf("LACE FRAME EMPTY");
+        printf("LACE FRAME EMPTY\n");
         return (0);
     }
     // remove the COBS encoding and store that in a new buffer
@@ -122,7 +122,7 @@ size_t LACEFrameDecode(uint8_t* input, size_t inputLength, uint8_t* output, size
 
     // can't compute a CRC if there is no data in the frame
     if (dataWithCRCLength <= 2) {
-        printf("LACE PACKET EMPTY");
+        printf("LACE PACKET EMPTY\n");
         return (0);
     }
 
@@ -130,7 +130,7 @@ size_t LACEFrameDecode(uint8_t* input, size_t inputLength, uint8_t* output, size
     uint16_t CRC = computeCRC16(dataWithCRC, dataWithCRCLength - 2);
 
     if (CRC != ((uint16_t)(dataWithCRC[dataWithCRCLength - 2] | (dataWithCRC[dataWithCRCLength - 1] << 8)))) {
-        printf("LACE CRC Error check");
+        printf("LACE CRC Error check\n");
         return (0);
     }
 
@@ -138,7 +138,7 @@ size_t LACEFrameDecode(uint8_t* input, size_t inputLength, uint8_t* output, size
 
     // copy the data to the output buffer without the CRC
     if (dataLength > outputLength) {
-        printf("LACE Decode output buffer overflow");
+        printf("LACE Decode output buffer overflow\n");
         return (0);
     }
 

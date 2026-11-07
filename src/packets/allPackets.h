@@ -22,10 +22,10 @@ using packetVariants = std::variant<
     errorPacket>;
 
 /// @brief converts from an std::variant back to a packet struct
-/// @param v the std::variant to convert
+/// @param variant the std::variant to convert
 /// @return a pointer to the packet struct
-inline packet* asPacket(packetVariants& v) {
-    return std::visit([](auto& p) -> packet* { return &p; }, v);
+inline packet* asPacket(packetVariants& variant) {
+    return std::visit([](auto& p) -> packet* { return &p; }, variant);
 }
 
 /// @brief automatically constructs a packet of the correct type
