@@ -20,15 +20,22 @@ class LACEDevice {
     uint8_t buttonArrayLength;
     /// @brief used to identify the device and the packets it sends
     uint8_t deviceID = 255;
+    /// @brief the type of device
+    const deviceType type;
 
-   public:
     /// @brief contructs the LACEDevice and allocates memory for the button array
     /// @param buttonArrayLength the length of the devices button array
-    LACEDevice(uint8_t buttonArrayLength);
+    /// @param type the type of device being constructed
+    LACEDevice(uint8_t buttonArrayLength, deviceType type);
 
+   public:
     /// @brief returns the devices ID
     /// @return the devices ID
     uint8_t getID();
+
+    /// @brief returns the device type
+    /// @return the device type
+    deviceType getDeviceType();
 
     /// @brief sets the device ID
     /// @param deviceID the ID to set it to

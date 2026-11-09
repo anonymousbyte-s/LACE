@@ -49,7 +49,7 @@ bool acceptPacket::encode(uint8_t* input, size_t inputLength) {
         return (false);
     }
 
-    setMACAddress(&input[1]);
+    setDeviceRandomID(&input[1]);
     setPacketLACEVersion(input[7]);
     setDeviceByteMask(input[8]);
     setDeviceIDs(&input[9], __builtin_popcount(input[8]));
@@ -63,7 +63,7 @@ size_t acceptPacket::decode(uint8_t* output, size_t outputLength) const {
     }
 
     output[0] = this->ID;
-    memcpy(&output[1], MACAddress, 6);
+    memcpy(&output[1], deviceRandomID, 6);
     output[7] = packetLACEVersion;
     output[8] = deviceByteMask;
     memcpy(&output[9], deviceIDs, __builtin_popcount(deviceByteMask));

@@ -1,6 +1,6 @@
 #include "device.h"
 
-LACEDevice::LACEDevice(uint8_t buttonArrayLength) {
+LACEDevice::LACEDevice(uint8_t buttonArrayLength, deviceType type) : type(type) {
     buttonArray = (uint8_t*)calloc(buttonArrayLength, sizeof(uint8_t));
 
     // check for sucessfull memory allocation
@@ -13,6 +13,10 @@ LACEDevice::LACEDevice(uint8_t buttonArrayLength) {
 
 uint8_t LACEDevice::getID() {
     return (deviceID);
+}
+
+deviceType LACEDevice::getDeviceType() {
+    return (type);
 }
 
 void LACEDevice::setID(uint8_t deviceID) {

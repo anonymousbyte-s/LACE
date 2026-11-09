@@ -9,6 +9,7 @@
 #include "descriptor/descriptorPacket.h"
 #include "error/errorPacket.h"
 #include "noop/noopPacket.h"
+#include "packet.h"
 #include "ping/pingPacket.h"
 
 using packetVariants = std::variant<
@@ -24,7 +25,7 @@ using packetVariants = std::variant<
 /// @brief converts from an std::variant back to a packet struct
 /// @param variant the std::variant to convert
 /// @return a pointer to the packet struct
-inline packet* asPacket(packetVariants& variant) {
+inline packet* asPacket(auto& variant) {
     return std::visit([](auto& p) -> packet* { return &p; }, variant);
 }
 

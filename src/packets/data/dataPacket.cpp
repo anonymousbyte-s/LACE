@@ -36,10 +36,6 @@ bool dataPacket::setData(uint8_t* input, size_t dataLength) {
     return (1);
 }
 
-size_t dataPacket::getDataLength() const {
-    return (dataLength);
-}
-
 bool dataPacket::addData(uint8_t* input, size_t dataLength) {
     if (this->dataLength + dataLength > maxPacketDataLength) {
         return (0);
@@ -56,6 +52,10 @@ size_t dataPacket::getData(uint8_t* output, size_t outptuLength) const {
     }
 
     memcpy(output, data, dataLength);
+    return (dataLength);
+}
+
+size_t dataPacket::getDataLength() const {
     return (dataLength);
 }
 

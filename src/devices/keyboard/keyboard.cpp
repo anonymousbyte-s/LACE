@@ -27,7 +27,7 @@ const deviceButton KEY_X{1 << 7, 2};
 const deviceButton KEY_Y{1 << 0, 3};
 const deviceButton KEY_Z{1 << 1, 3};
 
-virtualKeyboard::virtualKeyboard() : LACEDevice(32) {
+virtualKeyboard::virtualKeyboard() : LACEDevice(32, keyboard) {
     // keyboard devices need 32 bytes for all of the buttons
 }
 

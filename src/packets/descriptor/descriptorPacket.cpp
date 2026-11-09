@@ -11,12 +11,12 @@ descriptorPacket::descriptorPacket(uint8_t* input, size_t inputLength) {
     }
 }
 
-void descriptorPacket::setMACAddress(uint8_t* input) {
-    memcpy(MACAddress, input, 6);
+void descriptorPacket::setDeviceRandomID(uint8_t* input) {
+    memcpy(deviceRandomID, input, 6);
 }
 
-void descriptorPacket::getMACAddress(uint8_t* output) const {
-    memcpy(output, MACAddress, 6);
+void descriptorPacket::getDeviceRandomID(uint8_t* output) const {
+    memcpy(output, deviceRandomID, 6);
 }
 
 void descriptorPacket::setPacketLACEVersion(uint8_t packetLACEVersion) {
@@ -48,7 +48,7 @@ bool descriptorPacket::encode(uint8_t* input, size_t inputLength) {
         printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE DESC %zu\n", inputLength);
         return (false);
     }
-    setMACAddress(&input[1]);
+    setDeviceRandomID(&input[1]);
     setPacketLACEVersion(input[7]);
     setDeviceByteMask(input[8]);
     return (true);
@@ -60,7 +60,7 @@ size_t descriptorPacket::decode(uint8_t* output, size_t outputLength) const {
         return (0);
     }
     output[0] = this->ID;
-    memcpy(&output[1], MACAddress, 6);
+    memcpy(&output[1], deviceRandomID, 6);
     output[7] = packetLACEVersion;
     output[8] = deviceByteMask;
     return (9);

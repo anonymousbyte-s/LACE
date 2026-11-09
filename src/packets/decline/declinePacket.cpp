@@ -25,7 +25,7 @@ void declinePacket::setDeclineReason(declineReason reason) {
 
 bool declinePacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength != 8) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE\n");
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE DEC\n");
         return (false);
     }
     setMACAddress(&input[1]);

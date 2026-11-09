@@ -10,12 +10,12 @@
  * descriptor triggers: a descriptor is sent when a device receives a ping packet
  * descriptor structure:
  * byte 0: descriptor packet ID, value 2
- * byte 1: MAC address byte 0
- * byte 2: MAC address byte 1
- * byte 3: MAC address byte 2
- * byte 4: MAC address byte 3
- * byte 5: MAC address byte 4
- * byte 6: MAC address byte 5
+ * byte 1: deviceRandomID byte 0
+ * byte 2: deviceRandomID byte 1
+ * byte 3: deviceRandomID byte 2
+ * byte 4: deviceRandomID byte 3
+ * byte 5: deviceRandomID byte 4
+ * byte 6: deviceRandomID byte 5
  * byte 7: protocol version
  * byte 8: device type byte, uses a byte mask to allow for multiple device types
  */
@@ -23,9 +23,9 @@
 /// @brief structure of a packet to be sent to a virtual device
 struct descriptorPacket : public packet {
    protected:
-    /// @brief the MAC address of the ESP32 sending the packet, used
+    /// @brief the deviceRandomID of the ESP32 sending the packet, used
     /// to ID the device before device IDs are assigned to it
-    uint8_t MACAddress[6] = {0};
+    uint8_t deviceRandomID[6] = {0};
     /// @brief version of LACE that the device is using
     uint8_t packetLACEVersion = 0;
     /// @brief the byte mask of the devices that the ESP32 exposes
@@ -40,14 +40,14 @@ struct descriptorPacket : public packet {
     /// @param inputLength the length of the input data
     descriptorPacket(uint8_t* input, size_t inputLength);
 
-    /// @brief sets the MAC address for the packet
-    /// @param input buffer containing the MAC address, only the
+    /// @brief sets the deviceRandomID for the packet
+    /// @param input buffer containing the deviceRandomID, only the
     /// first 6 bytes will be used, must be at least 6 bytes long
-    void setMACAddress(uint8_t* input);
+    void setDeviceRandomID(uint8_t* input);
 
-    /// @brief copys the mac address from the packet to the output buffer
-    /// @param output the buffer to copy the mac address to, must be at least length 6
-    void getMACAddress(uint8_t* output) const;
+    /// @brief copys the deviceRandomID from the packet to the output buffer
+    /// @param output the buffer to copy the deviceRandomID to, must be at least length 6
+    void getDeviceRandomID(uint8_t* output) const;
 
     /// @brief sets the LACE version for the packet
     /// @param PacketLACEVersion the value to set the LACE version to

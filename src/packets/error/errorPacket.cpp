@@ -11,7 +11,7 @@ errorPacket::errorPacket(uint8_t* input, size_t inputLength) {
 
 bool errorPacket::encode(uint8_t* input, size_t inputLength) {
     if (inputLength != 1) {
-        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE\n");
+        printf("PACK ERROR INPUT BUFFER IS NOT EXPECTED SIZE ERR\n");
         return (false);
     }
     return (true);
